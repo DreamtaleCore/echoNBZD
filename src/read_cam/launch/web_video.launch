@@ -1,0 +1,17 @@
+<launch>
+	
+	<!-- Camera parameters -->
+
+	<node name="webCameraRead" pkg="read_cam" type="webCameraRead"/>	
+
+        <param name="FrameWidth" value="320" />
+        <param name="FrameHeight" value="240" />
+	<node name="get_video_node" pkg="vision_uav" type="get_video_node"/>
+
+        <node name="asiCameraRead" pkg="read_cam" type="asiCameraRead"/>
+
+        <param name="FrameWidth" value="320" />
+        <param name="FrameHeight" value="240" />
+        <node name="get_video_asi_node" pkg="vision_uav" type="get_video_asi_node"/>
+
+</launch>

@@ -1,0 +1,12 @@
+<launch>
+	<node pkg="dji_sdk" type="dji_sdk_node" name="dji_sdk_node" output="screen">
+		<!-- node parameters -->
+		<param name="serial_name" type="string" value="/dev/ttyACM0"/>
+		<param name="baud_rate" type="int" value="115200"/>
+		<param name="app_id" type="int" value="1017952"/>
+		<param name="app_api_level" type="int" value="2"/>
+		<param name="app_version" type="int" value="1"/>
+		<param name="app_bundle_id" type="string" value="12345678901234567890123456789012"/>
+		<param name="enc_key" type="string" value="6edaec35aed06691beee93aaf5e12ec7903173c94335bd420fc625f8605febae"/>	
+	</node>
+</launch>

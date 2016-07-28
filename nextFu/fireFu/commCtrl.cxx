@@ -142,23 +142,28 @@ int setParity(int fd,int databits,int stopbits,int parity)
  */
 int commRead(string& data, string port)
 {
-    int fd;
     int nread;
     char buff[512];
-    fd = openDev((char*)port.c_str());
-    setSpeed(fd, 9600);
-    if (setParity(fd, 8, 1,'N') == FALSE)
+    if(!isOpened)
     {
-        printf("Set Parity Error/n");
-        return -1;
+        fd = openDev((char*)port.c_str());
+        setSpeed(fd, 9600);
+        if (setParity(fd, 8, 1,'N') == FALSE)
+        {
+            printf("Set Parity Error/n");
+            return -1;
+        }
     }
-    while((nread = read(fd, buff, 512))>0)
+    else
     {
-        buff[nread+1] = '\0';
-        if(strlen(buff) > 1)
-            break;
+        while((nread = read(fd, buff, 512))>0)
+        {
+            buff[nread+1] = '\0';
+            if(strlen(buff) > 1)
+                break;
+        }
+        data = buff;
     }
-    data = buff;
     return 0;
 }
 
@@ -170,20 +175,27 @@ int commRead(string& data, string port)
  */
 int commWrite(string data, string port)
 {
-    int fd;
     int nwrite;
-    fd = openDev((char*)port.c_str());
-    setSpeed(fd, 9600);
-    if (setParity(fd,8,1,'N') == FALSE)
+    if(!isOpened)
     {
-        printf("Set Parity Error/n");
-        return -1;
+        fd = openDev((char*)port.c_str());
+        setSpeed(fd, 9600);
+        if (setParity(fd,8,1,'N') == FALSE)
+        {
+            printf("Set Parity Error/n");
+            return -1;
+        }
     }
-    nwrite = write(fd, data.c_str() ,data.length());
-    if(nwrite == -1)
+    else
     {
-        printf("Wirte sbuf error./n");
-        return -1;
+        nwrite = write(fd, data.c_str() ,data.length());
+        if(nwrite == -1)
+        {
+            printf("Wirte sbuf error./n");
+            return -1;
+        }
+
+        isOpened = 1;
     }
-   
+    return 0;
 }

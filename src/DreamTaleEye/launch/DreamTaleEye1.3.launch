@@ -1,0 +1,16 @@
+<launch>
+	<node pkg = "read_cam" type = "webCameraRead" name = "webCameraRead" output = "screen">
+	</node>
+ 	<node pkg="rosserial_python" type="serial_node.py" name="serial_node">
+    		<param name="port" value="/dev/ttyUSB0"/>
+    	</node>
+	<node pkg = "moveDetec" type = "detecFace" name = "detecFace" output = "screen">
+	</node>
+	<node pkg = "myFilter" type = "myFilter" name = "myFilter" output = "screen">
+	</node>
+	<node pkg = "posiCvt" type = "posiCvt" name = "posiCvt" output = "screen">
+		<param name="P" value = "0.7" />
+		<param name="I" value = "0.0001"/>
+		<param name="D" value = "0.08"/>
+	</node>
+</launch>

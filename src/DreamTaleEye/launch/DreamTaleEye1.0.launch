@@ -1,0 +1,8 @@
+<launch>
+	<node pkg = "read_cam" type = "webCameraRead" name = "webCameraRead" output = "screen">
+	</node>
+	<node pkg = "moveDetec" type = "detecFace" name = "detecFace" output = "screen">
+	</node>
+	<node pkg = "myFilter" type = "myFilter" name = "myFilter" output = "screen">
+	</node>
+</launch>

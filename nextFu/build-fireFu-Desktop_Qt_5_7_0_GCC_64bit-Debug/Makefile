@@ -50,10 +50,14 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../fireFu/main.cpp \
 		../fireFu/commCtrl.cxx \
-		../fireFu/arduinocomm.cpp 
+		../fireFu/arduinocomm.cpp \
+		../fireFu/uav_demo.cpp \
+		../fireFu/utilities.cpp 
 OBJECTS       = main.o \
 		commCtrl.o \
-		arduinocomm.o
+		arduinocomm.o \
+		uav_demo.o \
+		utilities.o
 DIST          = ../../../../bin/Qt5.7.0/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../bin/Qt5.7.0/5.7/gcc_64/mkspecs/common/unix.conf \
 		../../../../bin/Qt5.7.0/5.7/gcc_64/mkspecs/common/linux.conf \
@@ -204,9 +208,12 @@ DIST          = ../../../../bin/Qt5.7.0/5.7/gcc_64/mkspecs/features/spec_pre.prf
 		../fireFu/fireFu.pro ../fireFu/sysHeaders.h \
 		../fireFu/stdHeaders.h \
 		../fireFu/commCtrl.h \
-		../fireFu/arduinoHeaders.h ../fireFu/main.cpp \
+		../fireFu/arduinoHeaders.h \
+		../fireFu/utilities.h ../fireFu/main.cpp \
 		../fireFu/commCtrl.cxx \
-		../fireFu/arduinocomm.cpp
+		../fireFu/arduinocomm.cpp \
+		../fireFu/uav_demo.cpp \
+		../fireFu/utilities.cpp
 QMAKE_TARGET  = fireFu
 DESTDIR       = 
 TARGET        = fireFu
@@ -531,8 +538,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../fireFu/sysHeaders.h ../fireFu/stdHeaders.h ../fireFu/commCtrl.h ../fireFu/arduinoHeaders.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../fireFu/main.cpp ../fireFu/commCtrl.cxx ../fireFu/arduinocomm.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../fireFu/sysHeaders.h ../fireFu/stdHeaders.h ../fireFu/commCtrl.h ../fireFu/arduinoHeaders.h ../fireFu/utilities.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../fireFu/main.cpp ../fireFu/commCtrl.cxx ../fireFu/arduinocomm.cpp ../fireFu/uav_demo.cpp ../fireFu/utilities.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -572,29 +579,38 @@ compiler_clean:
 
 ####### Compile
 
-main.o: ../fireFu/main.cpp ../fireFu/commCtrl.h \
-		../fireFu/sysHeaders.h \
-		../fireFu/stdHeaders.h
+main.o: ../fireFu/main.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../fireFu/main.cpp
 
 commCtrl.o: ../fireFu/commCtrl.cxx ../fireFu/commCtrl.h \
 		../fireFu/sysHeaders.h \
-		../fireFu/stdHeaders.h
+		../fireFu/stdHeaders.h \
+		/opt/ros/indigo/include/std_msgs/String.h \
+		/opt/ros/indigo/include/ros/types.h \
+		/opt/ros/indigo/include/ros/serialization.h \
+		/opt/ros/indigo/include/ros/roscpp_serialization_macros.h \
+		/opt/ros/indigo/include/ros/macros.h \
+		/opt/ros/indigo/include/ros/time.h \
+		/opt/ros/indigo/include/ros/platform.h \
+		/opt/ros/indigo/include/ros/exception.h \
+		/opt/ros/indigo/include/ros/duration.h \
+		/opt/ros/indigo/include/ros/rostime_decl.h \
+		/opt/ros/indigo/include/ros/serialized_message.h \
+		/opt/ros/indigo/include/ros/message_traits.h \
+		/opt/ros/indigo/include/ros/message_forward.h \
+		/opt/ros/indigo/include/ros/builtin_message_traits.h \
+		/opt/ros/indigo/include/ros/datatypes.h \
+		/opt/ros/indigo/include/ros/message_operations.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o commCtrl.o ../fireFu/commCtrl.cxx
 
-arduinocomm.o: ../fireFu/arduinocomm.cpp ../fireFu/arduinoHeaders.h \
-		../../../../bin/arduino-1.6.9/hardware/arduino/avr/cores/arduino/Arduino.h \
-		../../../../bin/arduino-1.6.9/hardware/arduino/avr/cores/arduino/binary.h \
-		../../../../bin/arduino-1.6.9/hardware/arduino/avr/cores/arduino/WCharacter.h \
-		../../../../bin/arduino-1.6.9/hardware/arduino/avr/cores/arduino/WString.h \
-		../../../../bin/arduino-1.6.9/hardware/arduino/avr/cores/arduino/HardwareSerial.h \
-		../../../../bin/arduino-1.6.9/hardware/arduino/avr/cores/arduino/Stream.h \
-		../../../../bin/arduino-1.6.9/hardware/arduino/avr/cores/arduino/Print.h \
-		../../../../bin/arduino-1.6.9/hardware/arduino/avr/cores/arduino/Printable.h \
-		../../../../bin/arduino-1.6.9/hardware/arduino/avr/cores/arduino/USBAPI.h \
-		../../../../bin/arduino-1.6.9/hardware/arduino/avr/cores/arduino/USBDesc.h \
-		../../../../bin/arduino-1.6.9/hardware/arduino/avr/cores/arduino/USBCore.h
+arduinocomm.o: ../fireFu/arduinocomm.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o arduinocomm.o ../fireFu/arduinocomm.cpp
+
+uav_demo.o: ../fireFu/uav_demo.cpp ../fireFu/utilities.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o uav_demo.o ../fireFu/uav_demo.cpp
+
+utilities.o: ../fireFu/utilities.cpp ../fireFu/utilities.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o utilities.o ../fireFu/utilities.cpp
 
 ####### Install
 

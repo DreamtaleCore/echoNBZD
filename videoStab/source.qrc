@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>imgs/bit02.jpg</file>
+        <file>imgs/bit04.jpg</file>
+        <file>imgs/1.png</file>
+        <file>imgs/2.jpg</file>
+        <file>imgs/3.png</file>
+        <file>imgs/d25fdb550b493a57be5fa7bb52c4b11b.jpg</file>
+        <file>imgs/backAbout.PNG</file>
+        <file>imgs/backMain.PNG</file>
+        <file>imgs/backWelcom.PNG</file>
+        <file>imgs/btnAbout.png</file>
+        <file>imgs/btnBack.png</file>
+        <file>imgs/btnEnter.png</file>
+        <file>imgs/btnExit.png</file>
+    </qresource>
+</RCC>

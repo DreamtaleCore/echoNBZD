@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <string>
+#include <std_msgs/String.h>
+#include <vector>
 
 using namespace std;
 

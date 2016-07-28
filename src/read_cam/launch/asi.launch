@@ -1,0 +1,19 @@
+<launch>
+	
+	<!-- Camera parameters -->
+
+	<param name="set_gain" value="25" />
+	<param name="set_exposure" value="5500" />
+	<param name="set_height" value="480" />
+	<param name="set_width" value="640" />
+
+	<param name="rate" value="25" />
+	<param name="set_gamma" value="80" />
+	<param name="set_wb_r" value="70" />
+	<param name="set_wb_b" value="68" />
+	<param name="set_bright" value="10" />
+
+
+	<node name="asiCameraRead" pkg="read_cam" type="asiCameraRead"/>
+
+</launch>
